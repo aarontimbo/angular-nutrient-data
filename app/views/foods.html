@@ -1,0 +1,30 @@
+<div class="row-fluid">
+	<h1>Food Search</h1>
+	<form class="form-horizontal">
+
+		<div class="controls-row">
+			<label for="searchTextBox" class="control-lable">Search:</label>
+			<div class="controls">
+				<input type="text" id="searchTextBox" ng-model="filterService.searchText"> </div>
+			</div>
+			<div class="controls-row">
+        </div>
+    </form>
+
+	<div class="offset1 span8" >
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Food</th>
+				</tr>
+			</thead>
+			<tbody id="foodListTable">
+				<tr ng-repeat="food in foods | filter:filterService.searchText">
+					<td>{{food.id}}</td>
+					<td>{{food.longDescription}}</td>
+				</tr>
+      		</tbody>
+    	</table>
+  </div>
+</div>
