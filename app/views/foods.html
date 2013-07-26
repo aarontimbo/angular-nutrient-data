@@ -1,13 +1,13 @@
 <div class="row-fluid">
 	<h1>Food Search</h1>
+	<!--
 	<form class="form-horizontal">
 
 		<div class="controls-row">
-			<label for="searchTextBox" class="control-lable">Search:</label>
+			<label for="searchTextBox" class="control-label">Search:</label>
 			<div class="controls">
 				<input type="text" id="searchTextBox" ng-model="filterService.searchText"> </div>
 			</div>
-			<div class="controls-row">
         </div>
     </form>
 
@@ -26,5 +26,35 @@
 				</tr>
       		</tbody>
     	</table>
-  </div>
+    </div> -->
+
+	<form class="form-horizontal">
+	    <div>
+			<div class="controls-row">
+				<label for="filterTextBox" class="control-label">Filter:</label>
+				<div class="controls">
+					<input type="text" id="filterTextBox" ng-model="foodDescription.description"> </div>
+					<button ng-click="filterFoods()">Filter</button>
+				</div>
+	        </div>
+	    </div>
+    </form>
+	<div class="offset1 span8" >
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Food</th>
+				</tr>
+			</thead>
+			<tbody id="filteredFoodListTable">
+				<tr ng-repeat="food in filteredFoods">
+					<td>{{food.id}}</td>
+					<td>{{food.longDescription}}</td>
+				</tr>
+      		</tbody>
+    	</table>
+    </div>
+
+
 </div>
