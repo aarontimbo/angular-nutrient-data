@@ -2,8 +2,13 @@
 
 angular.module('nutrientDataApp')
   .controller('FoodNutrientCtrl', function ($scope, $http) {
-    $http.get('http://localhost\:8090/nutrient/1001').success(function(data){
-    	$scope.nutrients = data;	
-    });
+  	$scope.foodDescription = { id: '', description: '' };
+  	$scope.results = {};
+
+  	$scope.searchNutrients = function() {
+	    $http.get('http://localhost\:8090/nutrient/?foodId=' + $scope.foodDescription.id + '&definitionId=203').success(function(data){
+	    	$scope.results = data;	
+	    });
+  	}
     
   });
