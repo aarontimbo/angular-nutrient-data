@@ -1,7 +1,19 @@
 <div class="hero-unit">
-  <h1>Food Nutrients</h1>
-  <p>List of nutrients</p>
-  <ul>
-      <li ng-repeat="nutrient in nutrients">{{nutrient.food.longDescription}} - {{nutrient.definition.description}} : {{nutrient.amountPer100Grams}}</li>
-  </ul>
+  	<h1>Food Nutrients</h1>
+  	<!-- TODO: make this an autocomplete box to search by food descriptive name -->
+	<input type="text" id="filterTextBox" ng-model="foodDescription.id">
+
+	<select ng-model="nutrientDefinition.id" ng-options="nd.id as nd.description for nd in nutrientDefinitions" ng-change="updateNutrientInfo()">
+          <option value="">-- chose nutrient type --</option>
+    </select>	
+    
+    <button ng-click="searchNutrients()">Filter</button>
+
+  	<div ng-show="results">
+	  <p>List of nutrients</p>
+	  <ul>
+	      <!--<li ng-repeat="nutrient in results.nutrients">{{nutrient.food.longDescription}} - {{nutrient.definition.description}} : {{nutrient.amountPer100Grams}}</li>-->
+	      <li>{{results.food.longDescription}} - {{results.definition.description}} : {{results.amountPer100Grams}}{{results.definition.unit}}</li>
+	  </ul>
+	</div>
 </div>
