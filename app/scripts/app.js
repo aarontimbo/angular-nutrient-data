@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('nutrientDataApp', ['nutrientDataApp.services'])
+angular.module('nutrientDataApp', ['ngRoute','nutrientDataApp.services','ui.bootstrap'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
