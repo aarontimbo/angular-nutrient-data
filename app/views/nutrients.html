@@ -2,9 +2,12 @@
   	<h1>Food Nutrients</h1>
 	<input type="text" ng-model="foodDescription" typeahead="f as f.longDescription for f in food | filter:$viewValue | limitTo:10" typeahead-editable="false" typeahead-on-select="updateFoodWeights()"/>
  
+ 	<div>
+	<label for="amount-input">Amount</label><input id="amount-input" type="text" ng-model="amount" ng-change="updateNutrientInfo()" />
 	<select ng-model="foodWeight" ng-options="weight.description for weight in weights" ng-change="updateNutrientInfo()">
           <option value="">-- chose food weight --</option>
     </select>	
+	</div>
 
 	<select ng-model="nutrientDefinition" ng-options="nd.description for nd in nutrientDefinitions" ng-change="updateNutrientInfo()">
           <option value="">-- chose nutrient type --</option>
@@ -15,8 +18,8 @@
   	<div ng-show="results">
 	  <p>List of nutrients</p>
 	  <ul>
-	      <li>{{ results.food.longDescription }} - {{ results.definition.description }} : {{ results.amountPer100Grams}}{{results.definition.unit }}</li>
-	      <li>{{ nutrientValue | number:2 }}{{results.definition.unit}} of {{ results.definition.description }} per {{ foodWeight.description }}</li>
+	      <li>{{ results.food.longDescription }} - {{ results.definition.description }} : {{ results.amountPer100Grams}}{{results.definition.unit }} per 100g</li>
+	      <li><strong>{{ nutrientValue | number:2 }}{{results.definition.unit}}</strong> of <strong>{{ results.definition.description }}</strong> per {{ amount }} {{ foodWeight.description }}<span ng-if="amount != 1">s</span></li>
 	  </ul>	  
 	</div>
 </div>
