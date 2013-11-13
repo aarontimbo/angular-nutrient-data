@@ -4,6 +4,7 @@ angular.module('nutrientDataApp')
   .controller('FoodNutrientCtrl', function ($scope, $http) {
     $scope.foodWeight = {};
     $scope.weights = {};  
+    $scope.amount = 1;
 
   	// Get nutrient definitions
   	$http.get('http://localhost\:8090/nutrientdefinition').success(function(data, status, headers, config){
@@ -19,7 +20,7 @@ angular.module('nutrientDataApp')
   		$scope.results = data;	
       // TODO: add an amount entry
       // calculate nutrient value for selected food weight
-      $scope.nutrientValue = ($scope.foodWeight.gramWeight / 100) * data.amountPer100Grams;
+      $scope.nutrientValue = $scope.amount * data.amountPer100Grams * $scope.foodWeight.gramWeight / 100;
   	} 
 
     function updateWeights(data) {
