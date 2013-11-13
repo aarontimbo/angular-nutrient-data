@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('nutrientDataApp')
-  .controller('FoodNutrientCtrl', function ($scope, $http) {
+  .controller('FoodNutrientCtrl', function ($scope, $http, foodService) {
     $scope.foodWeight = {};
     $scope.weights = {};  
     $scope.amount = 1;
@@ -10,11 +10,15 @@ angular.module('nutrientDataApp')
   	$http.get('http://localhost\:8090/nutrientdefinition').success(function(data, status, headers, config){
   		$scope.nutrientDefinitions = data;
   	});
+    
+    // Get foods from service
+    $scope.loadFoodList = function() {
+      foodService.foodList().then(function(foodList) {
+        $scope.food = foodList;
+      });
+    };
 
-    // Get foods
-    $http.get('http://localhost\:8090/food').success(function(data, status, headers, config){
-      $scope.food = data;
-    });
+    $scope.loadFoodList();
 
   	function updateResults(data) {
   		$scope.results = data;	
