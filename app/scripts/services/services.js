@@ -1,13 +1,13 @@
-angular.module('nutrientDataApp.services', []).
+angular.module('nutrientDataApp.services', ['config']).
 	factory('filterService', function() {
 		return {
 			searchText: ''
 		};
 	}).
-	factory('resourceService', function(){
+	factory('resourceService', function(ENV){
 		'use strict';
 		var contextPath = function() {
-			return 'http://localhost\:8090';
+			return ENV.apiEndpoint;
 		};
 
 		return { contextPath: contextPath };

@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('nutrientDataApp')
-  .controller('FoodNutrientCtrl', function ($scope, $http, foodService) {
+  .controller('FoodNutrientCtrl', function ($scope, $http, foodService, ENV) {
     $scope.foodWeight = {};
     $scope.weights = {};  
     $scope.amount = 1;
 
   	// Get nutrient definitions
-  	$http.get('http://localhost\:8090/nutrientdefinition').success(function(data, status, headers, config){
+  	//$http.get('http://localhost\:8090/nutrientdefinition').success(function(data, status, headers, config){
+    //$http.get('http://nutrient-data-service.herokuapp.com/nutrientdefinition').success(function(data, status, headers, config){
+    $http.get(ENV.apiEndpoint + '/nutrientdefinition').success(function(data, status, headers, config){
   		$scope.nutrientDefinitions = data;
   	});
     
@@ -22,7 +24,6 @@ angular.module('nutrientDataApp')
 
   	function updateResults(data) {
   		$scope.results = data;	
-      // TODO: add an amount entry
       // calculate nutrient value for selected food weight
       $scope.nutrientValue = $scope.amount * data.amountPer100Grams * $scope.foodWeight.gramWeight / 100;
   	} 
@@ -43,7 +44,9 @@ angular.module('nutrientDataApp')
 
     $scope.updateFoodWeights = function() {
       if ($scope.foodDescription) {
-        $http.get('http://localhost\:8090/weight/' + $scope.foodDescription.id)
+        //$http.get('http://localhost\:8090/weight/' + $scope.foodDescription.id)
+        //$http.get('http://nutrient-data-service.herokuapp.com/weight/' + $scope.foodDescription.id)
+        $http.get(ENV.apiEndpoint + '/weight/' + $scope.foodDescription.id)
           .success(updateWeights)
           .error(hasErrors);
       }
@@ -51,7 +54,9 @@ angular.module('nutrientDataApp')
 
   	$scope.searchNutrients = function() {
       // Get food nutrient data filtered by food description id and nutrient definition (e.g. protein, fat, calories, etc.)
-	    $http.get('http://localhost\:8090/nutrient/?foodId=' + $scope.foodDescription.id + '&definitionId=' + $scope.nutrientDefinition.id)
+	    //$http.get('http://localhost\:8090/nutrient/?foodId=' + $scope.foodDescription.id + '&definitionId=' + $scope.nutrientDefinition.id)
+      //$http.get('http://nutrient-data-service.herokuapp.com/nutrient/?foodId=' + $scope.foodDescription.id + '&definitionId=' + $scope.nutrientDefinition.id)
+      $http.get(ENV.apiEndpoint + '/nutrient/?foodId=' + $scope.foodDescription.id + '&definitionId=' + $scope.nutrientDefinition.id)
 	    	.success(updateResults)
 	    	.error(hasErrors);
   	}
